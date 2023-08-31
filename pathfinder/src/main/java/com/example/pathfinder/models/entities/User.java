@@ -38,7 +38,7 @@ public class User extends BaseEntity {
         this.age = age;
     }
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     public String getUsername() {
         return username;
     }
