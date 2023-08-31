@@ -10,7 +10,7 @@ import java.util.Set;
 public class Route extends BaseEntity {
 
     private String description;
-    private String gpxCoordinate;
+    private String gpxCoordinates;
     private LevelEnum level;
     private String name;
     private User author;
@@ -21,12 +21,12 @@ public class Route extends BaseEntity {
     }
 
     @Column(columnDefinition = "LONGTEXT")
-    public String getGpxCoordinate() {
-        return gpxCoordinate;
+    public String getGpxCoordinates() {
+        return gpxCoordinates;
     }
 
-    public void setGpxCoordinate(String gpxCoordinate) {
-        this.gpxCoordinate = gpxCoordinate;
+    public void setGpxCoordinates(String gpxCoordinates) {
+        this.gpxCoordinates = gpxCoordinates;
     }
 
     @Enumerated(EnumType.STRING)
