@@ -1,7 +1,10 @@
 package com.example.pathfinder.web;
 
 import com.example.pathfinder.models.binding.UserRegisterBindingModel;
+import com.example.pathfinder.models.service.UserServiceModel;
+import com.example.pathfinder.services.UserService;
 import jakarta.validation.Valid;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,6 +17,14 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 @RequestMapping("/users")
 public class UserController {
+
+    private final UserService userService;
+    private final ModelMapper modelMapper;
+
+    public UserController(UserService userService, ModelMapper modelMapper) {
+        this.userService = userService;
+        this.modelMapper = modelMapper;
+    }
 
     @ModelAttribute
     public UserRegisterBindingModel userRegisterBindingModel() {
@@ -30,6 +41,13 @@ public class UserController {
     public String registerConfirm(@Valid UserRegisterBindingModel userRegisterBindingModel,
                                   BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 
+        if (!userRegisterBindingModel.getPassword().equals(userRegisterBindingModel.getConfirmPassword())) {
+
+            bindingResult.rejectValue("confirmPassword",
+                    "password.mismatch",
+                    "Passwords do not match!");
+        }
+
         if (bindingResult.hasErrors()) {
         redirectAttributes
                 .addFlashAttribute("userRegisterBindingModel", userRegisterBindingModel)
@@ -39,7 +57,11 @@ public class UserController {
         return "redirect:register";
         }
 
-        return "redirect:/";
+        userService.registerUser(modelMapper
+                .map(userRegisterBindingModel, UserServiceModel.class));
+
+
+        return "redirect:login";
     }
 
     @GetMapping("/login")
