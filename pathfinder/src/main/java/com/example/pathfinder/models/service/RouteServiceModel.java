@@ -1,14 +1,15 @@
-package com.example.pathfinder.models.entities;
+package com.example.pathfinder.models.service;
 
+import com.example.pathfinder.models.entities.Category;
+import com.example.pathfinder.models.entities.Picture;
+import com.example.pathfinder.models.entities.User;
 import com.example.pathfinder.models.enums.LevelEnum;
-import jakarta.persistence.*;
 
 import java.util.Set;
 
-@Entity
-@Table(name = "routes")
-public class Route extends BaseEntity {
+public class RouteServiceModel {
 
+    private Long id;
     private String description;
     private String gpxCoordinates;
     private LevelEnum level;
@@ -18,55 +19,17 @@ public class Route extends BaseEntity {
     private Set<Picture> pictures;
     private Set<Category> categories;
 
-    public Route() {
+    public RouteServiceModel() {
     }
 
-    @Column(columnDefinition = "LONGTEXT")
-    public String getGpxCoordinates() {
-        return gpxCoordinates;
+    public Long getId() {
+        return id;
     }
 
-    public void setGpxCoordinates(String gpxCoordinates) {
-        this.gpxCoordinates = gpxCoordinates;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    @Enumerated(EnumType.STRING)
-    public LevelEnum getLevel() {
-        return level;
-    }
-
-    public void setLevel(LevelEnum level) {
-        this.level = level;
-    }
-
-    @Column(unique = true, nullable = false)
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @ManyToOne
-    public User getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(User author) {
-        this.author = author;
-    }
-
-    @Column
-    public String getVideoUrl() {
-        return videoUrl;
-    }
-
-    public void setVideoUrl(String videoUrl) {
-        this.videoUrl = videoUrl;
-    }
-
-    @Column(columnDefinition = "TEXT")
     public String getDescription() {
         return description;
     }
@@ -75,21 +38,59 @@ public class Route extends BaseEntity {
         this.description = description;
     }
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    public Set<Category> getCategories() {
-        return categories;
+    public String getGpxCoordinates() {
+        return gpxCoordinates;
     }
 
-    public void setCategories(Set<Category> categories) {
-        this.categories = categories;
+    public void setGpxCoordinates(String gpxCoordinates) {
+        this.gpxCoordinates = gpxCoordinates;
     }
 
-    @OneToMany(mappedBy = "route", fetch = FetchType.EAGER)
+    public LevelEnum getLevel() {
+        return level;
+    }
+
+    public void setLevel(LevelEnum level) {
+        this.level = level;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public User getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(User author) {
+        this.author = author;
+    }
+
+    public String getVideoUrl() {
+        return videoUrl;
+    }
+
+    public void setVideoUrl(String videoUrl) {
+        this.videoUrl = videoUrl;
+    }
+
     public Set<Picture> getPictures() {
         return pictures;
     }
 
     public void setPictures(Set<Picture> pictures) {
         this.pictures = pictures;
+    }
+
+    public Set<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(Set<Category> categories) {
+        this.categories = categories;
     }
 }
