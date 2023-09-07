@@ -3,6 +3,7 @@ package com.example.pathfinder.web;
 import com.example.pathfinder.models.binding.UserLoginBindingModel;
 import com.example.pathfinder.models.binding.UserRegisterBindingModel;
 import com.example.pathfinder.models.service.UserServiceModel;
+import com.example.pathfinder.models.view.UserViewModel;
 import com.example.pathfinder.services.UserService;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
@@ -113,8 +114,10 @@ public class UserController {
     }
 
     @GetMapping("/profile/{id}")
-    private String profile(@PathVariable Long id) {
+    private String profile(@PathVariable Long id, Model model) {
 
+        model.addAttribute("user",
+                modelMapper.map(userService.findById(id), UserViewModel.class));
         return "profile";
     }
 
