@@ -10,4 +10,6 @@ public interface UserService {
     void loginUser(long id, String username);
 
     void logout();
+
+    UserServiceModel findById(Long id);
 }
