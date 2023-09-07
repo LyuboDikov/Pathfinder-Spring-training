@@ -45,12 +45,6 @@ public class UserController {
     public String registerConfirm(@Valid UserRegisterBindingModel userRegisterBindingModel,
                                   BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 
-        if (!userRegisterBindingModel.getPassword().equals(userRegisterBindingModel.getConfirmPassword())) {
-
-            bindingResult.rejectValue("confirmPassword",
-                    "password.mismatch",
-                    "Passwords do not match!");
-        }
 
         if (bindingResult.hasErrors()) {
         redirectAttributes
@@ -59,6 +53,12 @@ public class UserController {
                         bindingResult);
 
         return "redirect:register";
+        }
+
+        boolean isNameExists = userService.isNameExists(userRegisterBindingModel().getUsername());
+
+        if (isNameExists) {
+            //TODO redirect with message
         }
 
         userService.registerUser(modelMapper
