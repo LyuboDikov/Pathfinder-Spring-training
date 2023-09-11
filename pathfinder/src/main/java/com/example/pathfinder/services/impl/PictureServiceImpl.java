@@ -14,8 +14,6 @@ public class PictureServiceImpl implements PictureService {
     public PictureServiceImpl(PictureRepository pictureRepository) {
         this.pictureRepository = pictureRepository;
     }
-
-
     @Override
     public List<String> findAllUrls() {
         return pictureRepository.findAllUrls();
